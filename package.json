@@ -17,6 +17,10 @@
   },
   "homepage": "https://github.com/sylvain-viole/testify_demoqa#readme",
   "devDependencies": {
-    "cypress": "^7.1.0"
+    "cypress": "^7.1.0",
+    "cypress-cucumber-preprocessor": "^4.1.0"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true
   }
 }
