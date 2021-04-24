@@ -1,6 +1,9 @@
 Feature: from home page to product order
 
-Scenario: Visitor requests a product from the home page
+Scenario: [S001] Visitor makes a valid order
     Given A visitor on the homepage
     When He chooses a product
-    Then He should get product details
+    And Sets product options
+    And adds to cart
+    And confirms order with valid info
+    Then He should be able to order product

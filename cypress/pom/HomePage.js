@@ -10,8 +10,8 @@ export class HomePage extends Page {
     clickProduct(index) {
         cy.get(this.productLink).eq(index).children('h3').click()
     }
-
+    
     getProductName(index) {
-        return document.getElementsByClassName(this.productLink)[index].value()
+       return cy.get(this.productLink).eq(index).children('h3').invoke('text')
     }
 }
