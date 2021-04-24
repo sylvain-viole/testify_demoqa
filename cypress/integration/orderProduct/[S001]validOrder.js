@@ -2,9 +2,13 @@ import { Given, When, Then, And } from "cypress-cucumber-preprocessor/steps";
 
 const { HomePage } = require("../../pom/HomePage");
 const { ProductPage } = require("../../pom/ProductPage");
+const { CartPage } = require("../../pom/CartPage");
 
 const homePage = new HomePage();
 const productPage = new ProductPage();
+const cartPage = new CartPage();
+
+let productChosen = null
 
 Given("A visitor on the homepage", () => {
     cy.visit(homePage.url);
@@ -16,6 +20,7 @@ When("He chooses a product", () => {
         homePage.clickProduct(0);
         productPage.checkPageTitle(productName);
         productPage.checkProductTitle(productName);
+        productChosen = productName
     });
 });
 
@@ -41,8 +46,14 @@ And("adds to cart", () => {
         );
     });
     
-And("confirms order with valid info", () => {});
-    cy.get(productPage.viewCartBtn).should('be.visible').click();
+    And("confirms order with valid info", () => {
+        cy.get(productPage.viewCartBtn).should("be.visible").click();
+        cartPage.checkPageTitle("CART");
+        cy.get(cartPage.cartCount).should("have.text", "1");
+        console.log(productChosen)
+    });
     
+
+
 
 Then("He should be able to order product", () => {});
