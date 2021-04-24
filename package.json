@@ -1,0 +1,22 @@
+{
+  "name": "testify_demoqa",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sylvain-viole/testify_demoqa.git"
+  },
+  "author": "Sylvain Viole",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sylvain-viole/testify_demoqa/issues"
+  },
+  "homepage": "https://github.com/sylvain-viole/testify_demoqa#readme",
+  "devDependencies": {
+    "cypress": "^7.1.0"
+  }
+}
