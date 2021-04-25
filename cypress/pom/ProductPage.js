@@ -14,9 +14,7 @@ export class ProductPage extends Page {
         cy.get(this.productTitle).should("have.text", expectedValue);
     }
 
-<<<<<<< HEAD
-    setOption(target) {
-=======
+
     checkPageSpecificElements() {
         cy.checkElements([
             this.colorSelect,
@@ -27,7 +25,6 @@ export class ProductPage extends Page {
     }
 
     setOption(target, index) {
->>>>>>> essai
         let locator;
         switch(target) {
             case "color":
@@ -41,12 +38,9 @@ export class ProductPage extends Page {
             }
         cy.get(locator)
             .children("option")
-<<<<<<< HEAD
-            .eq(1)
-=======
+
             .eq(index)
             .should("exist")
->>>>>>> essai
             .invoke("attr", "value")
             .then((value) => {
                 cy.get(locator).select(value).should('have.value', value);
