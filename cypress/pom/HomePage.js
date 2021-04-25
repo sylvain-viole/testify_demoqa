@@ -20,7 +20,9 @@ export class HomePage extends Page {
     }
 
     getProductName(index) {
-        return cy.get(this.productLink).eq(index).children("h3").invoke("text");
+        cy.get(this.productLink).eq(index).children("h3").invoke("text").then(value => {
+            return value
+        });
     }
 
     getProductPrice(index) {

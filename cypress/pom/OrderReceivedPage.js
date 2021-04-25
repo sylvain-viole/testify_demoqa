@@ -11,4 +11,11 @@ export class OrderReceivedPage extends Page {
     checkPageSpecificElements() {
         cy.checkElements([this.thankYouMsg, this.totalPrice, this.cartCount]);
     }
+
+    checkConfirmationMsg() {
+        cy.get(orderReceivedPage.thankYouMsg).should(
+            "have.text",
+            "Thank you. Your order has been received."
+        );
+    }
 }

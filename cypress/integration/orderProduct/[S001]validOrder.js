@@ -15,8 +15,9 @@ const checkoutForm = new CheckoutForm();
 const orderReceivedPage = new OrderReceivedPage()
 const user = new User("US");
 
-let chosenProductName = null;
+let chosenProductName;
 let chosenProductPrice = null;
+let chosenProductQuantity = null;
 
 Given("A visitor on the homepage", () => {
     cy.visit(homePage.url);
@@ -25,43 +26,40 @@ Given("A visitor on the homepage", () => {
 });
 
 When("He chooses a product", () => {
+    homePage.getProductName(0).then((productName) => {
+        chosenProductName = productName;
+    });
     homePage.getProductPrice(0).then(productPrice => {
         chosenProductPrice = productPrice
     })
-    homePage.getProductName(0).then((productName) => {
-        homePage.clickProduct(0);
-        productPage.checkPageSpecificElements();
-        productPage.checkPageTitle(productName);
-        productPage.checkProductTitle(productName);
-        chosenProductName = productName;
-    });
+    homePage.clickProduct(0);
+    productPage.checkPageSpecificElements();
+    cy.log(chosenProductName)
+    productPage.checkPageTitle(chosenProductName);
+    productPage.checkProductTitle(chosenProductName);
 });
 
 And("Sets product options", () => {
-    productPage.setOption("color");
-    productPage.setOption("size");
+    productPage.setOption("color", 1);
+    productPage.setOption("size", 1);
 });
 
 And("Adds to cart", () => {
-    cy.get(productPage.addToCartBtn)
-        .parent("div")
-        .should("have.class", "woocommerce-variation-add-to-cart-enabled");
+    productPage.checkAddToCartIsEnabled();
+    productPage.getProductQuantity().then(quantity => {
+        chosenProductQuantity = quantity
+    })
     cy.get(productPage.addToCartBtn).click();
-    cy.get(productPage.cartCount).should("have.text", `Cart(1)${chosenProductPrice}`);
-    cy.get(productPage.notifMsg).should(
-        "contain.text",
-        "has been added to your cart."
-    );
+    productPage.checkCartCount(chosenProductQuantity, chosenProductPrice)
+    productPage.checkNotifMsg(chosenProductName)
 });
 
 And("Proceeds to checkout", () => {
-    cy.get(productPage.viewCartBtn).should("be.visible").click();
+    cy.get(productPage.viewCartBtn).click();
     cartPage.checkPageSpecificElements();
     cartPage.checkPageTitle("Cart");
-    cy.get(cartPage.cartCount).should(
-        "have.text",
-        `Cart(1)${chosenProductPrice}`
-    );
+    cartPage.checkCartCount(chosenProductQuantity, chosenProductPrice);
+    cartPage.checkProductTable(chosenProductName, chosenProductPrice, chosenProductQuantity)
     cy.get(cartPage.shopTable).contains(chosenProductName);
     cy.get(cartPage.proceedToCOBtn).click();
 });
@@ -85,4 +83,15 @@ Then("He should be able to order product", () => {
         "have.text",
         "Thank you. Your order has been received."
     );
+});
+
+// SC002
+
+But("Doesn't set options", () => {
+    productPage.setOption("color", 0);
+    productPage.setOption("size", 0);
+});
+
+Then("He should NOT be able to add to cart", () => {
+    cy.get(productPage.addToCartBtn).should('have.class', 'disabled')
 });
