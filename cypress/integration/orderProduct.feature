@@ -4,7 +4,7 @@ Scenario: [S001] Visitor makes a valid order
     Given A visitor on the homepage
     When He chooses a product
     And Sets product options
-    And Adds to cart
-    And Proceeds to checkout
-    And Confirms order with valid info
+    And adds to cart
+    And proceeds to checkout
+    And confirms order with valid info
     Then He should be able to order product
