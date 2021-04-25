@@ -11,7 +11,10 @@ const cartPage = new CartPage();
 const checkoutPage = new CheckoutPage();
 const checkoutForm = new CheckoutForm();
 
-let productChosen = null
+
+let chosenProductName;
+let chosenProductPrice;
+let chosenProductQuantity;
 
 Given("A visitor on the homepage", () => {
     cy.visit(homePage.url);
@@ -20,50 +23,53 @@ Given("A visitor on the homepage", () => {
 
 When("He chooses a product", () => {
     homePage.getProductName(0).then((productName) => {
-        homePage.clickProduct(0);
-        productPage.checkPageTitle(productName);
-        productPage.checkProductTitle(productName);
-        productChosen = productName
+        chosenProductName = productName;
     });
+    homePage.getProductPrice(0).then(productPrice => {
+        chosenProductPrice = productPrice
+    }).then(() => {
+        homePage.clickProduct(0);
+        productPage.checkPageSpecificElements();
+        productPage.checkPageTitle(chosenProductName);
+        productPage.checkProductTitle(chosenProductName);
+    })
 });
 
 And("Sets product options", () => {
-    cy.get(productPage.colorSelect).should('be.visible');
-    cy.get(productPage.sizeSelect).should('be.visible');
-    cy.get(productPage.quantityInput).should('be.visible');
-    cy.get(productPage.quantityInput).should("have.value", "1");
-    cy.get(productPage.addToCartBtn).should("have.class","disabled");
-    productPage.setOption("color");
-    productPage.setOption("size");
+    productPage.setOption("color", 1);
+    productPage.setOption("size", 1);
 });
 
-And("adds to cart", () => {
-    cy.get(productPage.addToCartBtn)
-        .parent("div")
-        .should("have.class", "woocommerce-variation-add-to-cart-enabled")
-    cy.get(productPage.addToCartBtn).click();
-    cy.get(productPage.cartCount).should('have.text', '1');
-    cy.get(productPage.notifAdd).should(
-        "contain.text",
-        "has been added to your cart."
-        );
-    });
-    
-    And("proceeds to checkout", () => {
-        cy.get(productPage.viewCartBtn).should("be.visible").click();
-        cartPage.checkPageTitle("Cart");
-        cy.get(cartPage.cartCount).should("have.text", "1");
-        cy.get(cartPage.shopTable).should("exist").contains(productChosen).should('exist')
-        cy.get(cartPage.proceedToCOBtn).should("exist").click()
-    });
-
-    And("confirms order with valid info", () => {
-        checkoutPage.checkPageTitle('Checkout')
-        cy.get(`form[name="${checkoutForm.name}"]`).should('exist')
-        checkoutForm.setInput(checkoutForm.fnInput, 'test1')
+And("Adds to cart", () => {
+    //TODO
+    productPage.checkAddToCartIsEnabled();
+    productPage.getProductQuantity().then(quantity => {
+        chosenProductQuantity = quantity
     })
-    
+    cy.get(productPage.addToCartBtn).click();
+    productPage.checkCartCount(chosenProductQuantity, chosenProductPrice)
+    productPage.checkNotifMsg(chosenProductName)
+});
 
+And("Proceeds to checkout", () => {
+    cy.get(productPage.viewCartBtn).click();
+    cartPage.checkPageSpecificElements();
+    cartPage.checkPageTitle("Cart");
+    cartPage.checkCartCount(chosenProductQuantity, chosenProductPrice);
+    cartPage.checkProductTable(chosenProductName, chosenProductPrice, chosenProductQuantity)
+    cy.get(cartPage.shopTable).contains(chosenProductName);
+    cy.get(cartPage.proceedToCOBtn).click();
+});
 
-
-Then("He should be able to order product", () => {});
+Then("He should be able to order product", () => {
+    checkoutForm.submit();
+    cy.get("@checkout")
+        .its("response.body")
+        .should("have.property", "result", "success");
+    cy.url().should('contain', orderReceivedPage.url);
+    orderReceivedPage.checkPageSpecificElements()
+    cy.get(orderReceivedPage.thankYouMsg).should(
+        "have.text",
+        "Thank you. Your order has been received."
+    );
+});

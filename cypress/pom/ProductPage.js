@@ -14,7 +14,20 @@ export class ProductPage extends Page {
         cy.get(this.productTitle).should("have.text", expectedValue);
     }
 
+<<<<<<< HEAD
     setOption(target) {
+=======
+    checkPageSpecificElements() {
+        cy.checkElements([
+            this.colorSelect,
+            this.sizeSelect,
+            this.quantityInput,
+            this.addToCartBtn,
+        ]);
+    }
+
+    setOption(target, index) {
+>>>>>>> essai
         let locator;
         switch(target) {
             case "color":
@@ -28,10 +41,32 @@ export class ProductPage extends Page {
             }
         cy.get(locator)
             .children("option")
+<<<<<<< HEAD
             .eq(1)
+=======
+            .eq(index)
+            .should("exist")
+>>>>>>> essai
             .invoke("attr", "value")
             .then((value) => {
                 cy.get(locator).select(value).should('have.value', value);
             });
+    }
+
+    getProductQuantity() {
+        return cy.get(this.quantityInput).invoke("text");
+    }
+
+    checkAddToCartIsEnabled() {
+        cy.get(this.addToCartBtn)
+            .parent("div")
+            .should("have.class", "woocommerce-variation-add-to-cart-enabled");
+    }
+
+    checkNotifMsg(productName) {
+        cy.get(this.notifMsg).should(
+            "have.text",
+            `${productName} has been added to your cart.`
+        );
     }
 }

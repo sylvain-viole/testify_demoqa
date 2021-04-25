@@ -8,4 +8,10 @@ export class CartPage extends Page {
         this.proceedToCOBtn = ".wc-proceed-to-checkout"
         
     }
+
+    checkProductTable(product) {
+        cy.get(this.shopTable).contains(product.name).should('exist').and('be.visible');
+        cy.get(this.shopTable).contains(product.price).should('exist').and('be.visible');
+        cy.get(this.shopTable).contains(product.quantity).should('exist').and('be.visible');
+    }
 }
