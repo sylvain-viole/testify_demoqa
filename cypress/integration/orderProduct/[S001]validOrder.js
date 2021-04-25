@@ -1,12 +1,15 @@
 import { Given, When, Then, And } from "cypress-cucumber-preprocessor/steps";
-
-const { HomePage } = require("../../pom/HomePage");
-const { ProductPage } = require("../../pom/ProductPage");
-const { CartPage } = require("../../pom/CartPage");
+import { CheckoutPage } from "../../pom/CheckoutPage";
+import { HomePage } from "../../pom/HomePage";
+import { ProductPage } from "../../pom/ProductPage";
+import { CartPage } from "../../pom/CartPage";
+import { CheckoutForm } from "../../pom/CheckoutForm";
 
 const homePage = new HomePage();
 const productPage = new ProductPage();
 const cartPage = new CartPage();
+const checkoutPage = new CheckoutPage();
+const checkoutForm = new CheckoutForm();
 
 let productChosen = null
 
@@ -46,12 +49,19 @@ And("adds to cart", () => {
         );
     });
     
-    And("confirms order with valid info", () => {
+    And("proceeds to checkout", () => {
         cy.get(productPage.viewCartBtn).should("be.visible").click();
-        cartPage.checkPageTitle("CART");
+        cartPage.checkPageTitle("Cart");
         cy.get(cartPage.cartCount).should("have.text", "1");
-        console.log(productChosen)
+        cy.get(cartPage.shopTable).should("exist").contains(productChosen).should('exist')
+        cy.get(cartPage.proceedToCOBtn).should("exist").click()
     });
+
+    And("confirms order with valid info", () => {
+        checkoutPage.checkPageTitle('Checkout')
+        cy.get(`form[name="${checkoutForm.name}"]`).should('exist')
+        checkoutForm.setInput(checkoutForm.fnInput, 'test1')
+    })
     
 
 
