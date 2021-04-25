@@ -16,8 +16,8 @@ const orderReceivedPage = new OrderReceivedPage()
 const user = new User("US");
 
 let chosenProductName;
-let chosenProductPrice = null;
-let chosenProductQuantity = null;
+let chosenProductPrice;
+let chosenProductQuantity;
 
 Given("A visitor on the homepage", () => {
     cy.visit(homePage.url);
@@ -31,12 +31,12 @@ When("He chooses a product", () => {
     });
     homePage.getProductPrice(0).then(productPrice => {
         chosenProductPrice = productPrice
+    }).then(() => {
+        homePage.clickProduct(0);
+        productPage.checkPageSpecificElements();
+        productPage.checkPageTitle(chosenProductName);
+        productPage.checkProductTitle(chosenProductName);
     })
-    homePage.clickProduct(0);
-    productPage.checkPageSpecificElements();
-    cy.log(chosenProductName)
-    productPage.checkPageTitle(chosenProductName);
-    productPage.checkProductTitle(chosenProductName);
 });
 
 And("Sets product options", () => {
@@ -45,6 +45,7 @@ And("Sets product options", () => {
 });
 
 And("Adds to cart", () => {
+    //TODO
     productPage.checkAddToCartIsEnabled();
     productPage.getProductQuantity().then(quantity => {
         chosenProductQuantity = quantity
@@ -83,15 +84,4 @@ Then("He should be able to order product", () => {
         "have.text",
         "Thank you. Your order has been received."
     );
-});
-
-// SC002
-
-But("Doesn't set options", () => {
-    productPage.setOption("color", 0);
-    productPage.setOption("size", 0);
-});
-
-Then("He should NOT be able to add to cart", () => {
-    cy.get(productPage.addToCartBtn).should('have.class', 'disabled')
 });

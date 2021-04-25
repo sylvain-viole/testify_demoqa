@@ -55,7 +55,7 @@ export class ProductPage extends Page {
             .should("have.class", "woocommerce-variation-add-to-cart-enabled");
     }
 
-    checkNtofiMsg(productName) {
+    checkNotifMsg(productName) {
         cy.get(this.notifMsg).should(
             "have.text",
             `${productName} has been added to your cart.`
