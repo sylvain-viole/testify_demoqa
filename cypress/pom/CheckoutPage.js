@@ -5,4 +5,8 @@ export class CheckoutPage extends Page {
         super()
         this.url = "/checkout"
     }
+
+    checkPageSpecificElements() {
+        
+    }
 }

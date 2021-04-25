@@ -14,24 +14,34 @@ export class ProductPage extends Page {
         cy.get(this.productTitle).should("have.text", expectedValue);
     }
 
+    checkPageSpecificElements() {
+        cy.checkElements([
+            this.colorSelect,
+            this.sizeSelect,
+            this.quantityInput,
+            this.addToCartBtn,
+        ]);
+    }
+
     setOption(target) {
         let locator;
-        switch(target) {
+        switch (target) {
             case "color":
-                locator = this.colorSelect
+                locator = this.colorSelect;
                 break;
             case "size":
-                locator = this.sizeSelect
-                break
-            default :
-                throw new Error("wrong parameter passed")
-            }
+                locator = this.sizeSelect;
+                break;
+            default:
+                throw new Error("wrong parameter passed");
+        }
         cy.get(locator)
             .children("option")
             .eq(1)
+            .should("exist")
             .invoke("attr", "value")
             .then((value) => {
-                cy.get(locator).select(value).should('have.value', value);
+                cy.get(locator).select(value).should("have.value", value);
             });
     }
 }
