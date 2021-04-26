@@ -94,7 +94,7 @@ Then("He should be able to order product", () => {
     );
 });
 
-And("Receives a confirmation email", () => {
+And("Should receive a confirmation email", () => {
     cy.request(
         "GET",
         "https://svioletest@mailo.xyz/api/emails?sender=nomail@toolsqa.com"
