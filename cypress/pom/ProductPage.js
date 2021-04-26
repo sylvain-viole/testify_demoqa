@@ -3,7 +3,7 @@ import Page from "./Page";
 export class ProductPage extends Page {
     constructor() {
         super();
-        this.url;
+        this.url = "/product";
         this.productTitle = "h1.product_title";
         this.colorSelect = "#pa_color";
         this.sizeSelect = "#pa_size";
@@ -13,7 +13,6 @@ export class ProductPage extends Page {
     checkProductTitle(expectedValue) {
         cy.get(this.productTitle).should("have.text", expectedValue);
     }
-
 
     checkPageSpecificElements() {
         cy.checkElements([

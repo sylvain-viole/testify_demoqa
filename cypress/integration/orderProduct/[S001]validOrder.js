@@ -19,7 +19,8 @@ let product = new Product();
 
 Given("A visitor on the homepage", () => {
     cy.visit(homePage.url);
-    cy.url().should("be.eq", "http://shop.demoqa.com/");
+    homePage.checkUrl();
+    homePage.checkPageSpecificElements();
 });
 
 When("He chooses a product", () => {
@@ -33,6 +34,7 @@ When("He chooses a product", () => {
         })
         .then(() => {
             homePage.clickProduct(0);
+            productPage.checkUrl();
             productPage.checkPageSpecificElements();
             productPage.checkPageTitle(product.name);
             productPage.checkProductTitle(product.name);
@@ -60,6 +62,7 @@ And("Adds to cart", () => {
 
 And("Proceeds to checkout", () => {
     cy.get(productPage.viewCartBtn).click();
+    cartPage.checkUrl();
     cartPage.checkPageSpecificElements();
     cartPage.checkPageTitle("Cart");
     cartPage.checkCartCount(product.quantity, product.price);
@@ -69,6 +72,7 @@ And("Proceeds to checkout", () => {
 
 And("Confirms order with valid info", () => {
     cy.intercept("/?wc-ajax=checkout").as("checkout");
+    checkoutPage.checkUrl();
     checkoutPage.checkPageSpecificElements();
     checkoutForm.checkFormSpecificElements();
     checkoutPage.checkPageTitle("Checkout");
@@ -81,6 +85,7 @@ Then("He should be able to order product", () => {
         .its("response.body")
         .should("have.property", "result", "success");
     cy.url().should("contain", orderReceivedPage.url);
+    orderReceivedPage.checkUrl();
     orderReceivedPage.checkPageSpecificElements();
     cy.get(orderReceivedPage.thankYouMsg).should(
         "have.text",
