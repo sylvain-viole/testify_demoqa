@@ -82,7 +82,7 @@ And("Confirms order with valid info", () => {
 
 Then("He should be able to order product", () => {
     checkoutForm.submit();
-    cy.get("@checkout", {timeout: 20000})
+    cy.get("@checkout", { timeout: 20000 })
         .its("response.body")
         .should("have.property", "result", "success");
     cy.url().should("contain", orderReceivedPage.url);
@@ -99,13 +99,13 @@ And("Should receive a confirmation email", () => {
         "GET",
         "https://svioletest@mailo.xyz/api/emails?sender=nomail@toolsqa.com"
     ).then((response) => {
-        expect(response.status).to.eq(200, {timeout: 50000});
+        expect(response.status).to.eq(200, { timeout: 50000 });
         expect(response.body.data[0]).to.have.property(
             "subject",
             "Your ToolsQA Demo Site order has been received!"
         );
-        let id = response.body.data[0].id
-        cy.log('confirmation mail suppression')
+        let id = response.body.data[0].id;
+        cy.log("confirmation mail suppression");
         cy.request("DELETE", `https://svioletest@mailo.xyz/api/emails/${id}`);
     });
 });

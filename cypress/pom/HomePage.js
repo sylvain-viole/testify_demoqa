@@ -3,7 +3,7 @@ import Page from "./Page";
 export class HomePage extends Page {
     constructor() {
         super();
-        this.name = "home page"
+        this.name = "home page";
         this.url = "/";
         this.productLink = "div.noo-product-inner";
     }

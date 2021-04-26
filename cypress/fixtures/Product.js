@@ -1,7 +1,5 @@
 export class Product {
     constructor() {
-        this.name,
-        this.price,
-        this.quantity
+        this.name, this.price, this.quantity;
     }
 }

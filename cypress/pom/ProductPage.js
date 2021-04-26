@@ -26,16 +26,16 @@ export class ProductPage extends Page {
 
     setOption(target, index) {
         let locator;
-        switch(target) {
+        switch (target) {
             case "color":
-                locator = this.colorSelect
+                locator = this.colorSelect;
                 break;
             case "size":
-                locator = this.sizeSelect
-                break
-            default :
-                throw new Error("wrong parameter passed")
-            }
+                locator = this.sizeSelect;
+                break;
+            default:
+                throw new Error("wrong parameter passed");
+        }
         cy.get(locator)
             .children("option")
 
@@ -43,12 +43,12 @@ export class ProductPage extends Page {
             .should("exist")
             .invoke("attr", "value")
             .then((value) => {
-                cy.get(locator).select(value).should('have.value', value);
+                cy.get(locator).select(value).should("have.value", value);
             });
     }
 
     getProductQuantity() {
-        return cy.get(this.quantityInput).invoke("attr", 'value');
+        return cy.get(this.quantityInput).invoke("attr", "value");
     }
 
     checkAddToCartIsEnabled() {

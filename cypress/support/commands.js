@@ -24,7 +24,7 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 Cypress.Commands.add("checkElements", (elements) => {
-    elements.forEach(element => {
+    elements.forEach((element) => {
         cy.get(element).should("exist").and("be.visible");
-    })
+    });
 });
