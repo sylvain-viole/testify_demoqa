@@ -1,19 +1,25 @@
 name: TESTS
 
+ 
 on:
+
   push:
-    branches: [main]
+    branches: [ main ]
+
 
   workflow_dispatch:
 
 jobs:
+
   build:
+  
     runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v2
 
-    - name: install
-      run: npm install
+    steps:
+      - uses: actions/checkout@v2
 
-    - name: test
-      run: ./node_modules/.bin/cypress run --record --key ${{ secrets.CYPRESS_DASHBOARD_KEY }}
+      - name: install
+        run: npm install
+        
+      - name: test
+        run: ./node_modules/.bin/cypress run --record --key ${{ secrets.CYPRESS_DASHBOARD_KEY }}
