@@ -53,8 +53,8 @@ Un run de test est lancé à chaque `push` sur la branche main
 - `orderProduct.feature` : Description gherkins du scénario
 - `[S001]validOrder.js`: Step definitions du scénario
 - `pom/`: Contient les locators et méthodes de chaque page visitée
-- `Product.js`: Classe de mock du produit manipuler par l'utilisateur (objet hydraté lors de la navigation)
-- `'User.js` : Classe de mock d'un utilisateur (utilise `faker`)
+- `Product.js`: Classe de mock du produit manipulé par l'utilisateur (objet hydraté lors de la navigation)
+- `User.js` : Classe de mock d'un utilisateur (utilise `faker`)
 
 ---
 
