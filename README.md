@@ -1,4 +1,4 @@
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/sylvain-viole/testify_demoqa/TESTS?style=for-the-badge)
+[![testify_demoqa](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/simple/u67ihc&style=for-the-badge&logo=cypress)](https://dashboard.cypress.io/projects/u67ihc/runs)
 
 ### Testify_demoqa
 Ce Repository héberge un scénario de test E2E automatisé sur la page http://shop.demoqa.com/ à titre de démonstration.
@@ -41,8 +41,9 @@ Puis
 
 ---
 
-### CI Build
+### INTEGRATIONS / ACTIONS
 Un run de test est lancé à chaque `push` sur la branche main
+Un dashboard de test est disponible à cette adresse : https://dashboard.cypress.io/projects/u67ihc/runs
 
 ---
 
