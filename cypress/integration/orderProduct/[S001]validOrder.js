@@ -82,8 +82,8 @@ And("Confirms order with valid info", () => {
 
 Then("He should be able to order product", () => {
     checkoutForm.submit();
-    cy.get("@checkout", { timeout: 20000 })
-        .its("response.body")
+    cy.get("@checkout")
+        .its("response.body", { timeout: 20000 })
         .should("have.property", "result", "success");
     cy.url().should("contain", orderReceivedPage.url);
     orderReceivedPage.checkUrl();
