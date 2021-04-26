@@ -12,6 +12,6 @@ export class User {
         this.state = faker.address.stateAbbr()
         this.zip = faker.address.zipCode()
         this.phone = faker.phone.phoneNumber('##########')
-        this.email = faker.internet.email()
+        this.email = "svioletest@mailo.xyz"
     }
 }

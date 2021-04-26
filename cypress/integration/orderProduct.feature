@@ -16,3 +16,4 @@ Scenario: [S001] Visitor makes a valid order
     And Proceeds to checkout
     And Confirms order with valid info
     Then He should be able to order product
+    And Receives a confirmation email

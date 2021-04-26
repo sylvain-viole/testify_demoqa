@@ -93,3 +93,19 @@ Then("He should be able to order product", () => {
         "Thank you. Your order has been received."
     );
 });
+
+And("Receives a confirmation email", () => {
+    cy.request(
+        "GET",
+        "https://svioletest@mailo.xyz/api/emails?sender=nomail@toolsqa.com"
+    ).then((response) => {
+        expect(response.status).to.eq(200, {timeout: 50000});
+        expect(response.body.data[0]).to.have.property(
+            "subject",
+            "Your ToolsQA Demo Site order has been received!"
+        );
+        let id = response.body.data[0].id
+        cy.log('confirmation mail suppression')
+        cy.request("DELETE", `https://svioletest@mailo.xyz/api/emails/${id}`);
+    });
+});

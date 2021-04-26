@@ -10,6 +10,16 @@ Ce Repository héberge un scénario de test E2E automatisé sur la page http://s
 
 **Scenario :**
 `[S001] Visitor makes a valid order`
+```
+    Given A visitor on the homepage
+    When He chooses a product
+    And Sets product options
+    And Adds to cart
+    And Proceeds to checkout
+    And Confirms order with valid info
+    Then He should be able to order product
+    And Receives a confirmation email
+```
 
 ---
 
@@ -75,12 +85,13 @@ Le comportement et les vérifications effectuées sont les suivantes :
 - Cliquer ensuite sur le bouton «PLACE ORDER»
 - Un message de succès doit s’afficher avec les détails de la commande d’achat.
 
-En plus des assertions décrites ci-dessus, le script vérifie systématiquement :
+**En plus des assertions décrites ci-dessus, le script vérifie systématiquement** :
 - la présence et la visiblité des éléments jugés essentiels de chaque page
 - l'url de chaque page visitée
 - l'état des éléments avant et après interaction
 - l'état du CART au fil de la navigation
 - le body.result de la requète XHR d'envoi de la commande en fin de parcours
+- la réception du mail de confirmation de commande
 
 ### Out scope :
 - Tous les comportements non-valides sur ce parcours
@@ -91,4 +102,6 @@ En plus des assertions décrites ci-dessus, le script vérifie systématiquement
 
 ### Analyse et limitations :
 - Faible déterminisme des locators : Du fait de la structure du code HTML les locators sont basés essentiellement sur des CLASSES ce qui rend le script d'automatisation vulnérable au changement.
+
+
 - L'utilisation stricte du GHERKIN pour un parcours E2E limite la granularité des étapes de test, et réduit ainsi la lisiblité en cas d'échec.
