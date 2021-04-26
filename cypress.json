@@ -1,4 +1,5 @@
 {
-    "baseUrl": "http://shop.demoqa.com/",
-    "testFiles": "**/*.{feature,features}"
+  "baseUrl": "http://shop.demoqa.com/",
+  "testFiles": "**/*.{feature,features}",
+  "projectId": "u67ihc"
 }
