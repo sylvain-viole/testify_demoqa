@@ -12,7 +12,7 @@ Feature: As a visitor I want to add a product to cart in order to buy it
         Given A visitor on the home page
         When He picks a product
         Then He should be shown the product page
-@focus 
+
     Scenario: [002] Visitor sets product options
         Given A visitor on the product page
         And The cart is empty

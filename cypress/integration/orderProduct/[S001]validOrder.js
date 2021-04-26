@@ -41,14 +41,14 @@ And("Sets product options", () => {
 });
 
 And("Adds to cart", () => {
-    //TODO
     productPage.checkAddToCartIsEnabled();
     productPage.getProductQuantity().then(quantity => {
         chosenProductQuantity = quantity
+    }).then(()=> {
+        cy.get(productPage.addToCartBtn).click();
+        productPage.checkCartCount(chosenProductQuantity, chosenProductPrice)
+        productPage.checkNotifMsg(chosenProductName)
     })
-    cy.get(productPage.addToCartBtn).click();
-    productPage.checkCartCount(chosenProductQuantity, chosenProductPrice)
-    productPage.checkNotifMsg(chosenProductName)
 });
 
 And("Proceeds to checkout", () => {

@@ -48,7 +48,7 @@ export class ProductPage extends Page {
     }
 
     getProductQuantity() {
-        return cy.get(this.quantityInput).invoke("text");
+        return cy.get(this.quantityInput).invoke("attr", 'value');
     }
 
     checkAddToCartIsEnabled() {
@@ -59,8 +59,8 @@ export class ProductPage extends Page {
 
     checkNotifMsg(productName) {
         cy.get(this.notifMsg).should(
-            "have.text",
-            `${productName} has been added to your cart.`
+            "contain.text",
+            `“${productName}” has been added to your cart.`
         );
     }
 }
