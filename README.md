@@ -18,7 +18,7 @@ Ce Repository héberge un scénario de test E2E automatisé sur la page http://s
     And Proceeds to checkout
     And Confirms order with valid info
     Then He should be able to order product
-    And Receives a confirmation email
+    And Should receive a confirmation email
 ```
 
 ---
