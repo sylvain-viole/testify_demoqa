@@ -3,6 +3,7 @@ import Page from "./Page";
 export class ProductPage extends Page {
     constructor() {
         super();
+        this.name = "product page";
         this.url = "/product";
         this.productTitle = "h1.product_title";
         this.colorSelect = "#pa_color";

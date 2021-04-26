@@ -3,6 +3,7 @@ import Page from "./Page";
 export class OrderReceivedPage extends Page {
     constructor() {
         super();
+        this.name = "order-received page";
         this.url = "/order-received";
         this.totalPrice = "span.woocommerce-Price-amount";
         this.thankYouMsg = "p.woocommerce-thankyou-order-received";

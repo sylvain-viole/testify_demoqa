@@ -5,9 +5,11 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
+        "report:clean": "rimraf mochawesome-report cypress/results mochawesome.json cypress/screenshots",
         "cy:open": "cypress open",
         "cy:run": "cypress run",
-        "cy:run:report": "cypress run"
+        "report:generate": "npx mochawesome-merge 'cypress/results/*.json' > mochawesome.json && npx marge -p testifyQa-test-report -f testifyQa-test-result --timestamp isoDateTime cypress/results/mochawesome.json",
+        "cy:run:report": "npm run report:clean && npm run cy:run && npm run report:generate"
     },
     "repository": {
         "type": "git",

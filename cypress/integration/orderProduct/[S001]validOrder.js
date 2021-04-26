@@ -1,4 +1,5 @@
 import { Given, When, Then, And } from "cypress-cucumber-preprocessor/steps";
+
 import { CheckoutPage } from "../../pom/CheckoutPage";
 import { HomePage } from "../../pom/HomePage";
 import { ProductPage } from "../../pom/ProductPage";
