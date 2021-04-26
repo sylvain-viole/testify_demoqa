@@ -1,7 +1,0 @@
-{
-  "baseUrl": "http://shop.demoqa.com/",
-  "testFiles": "**/*.{feature,features}",
-  "projectId": "u67ihc",
-  "whatchForFileChanges": false,
-  "video": false
-}
