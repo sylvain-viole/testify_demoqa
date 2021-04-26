@@ -42,8 +42,8 @@ Puis
 ---
 
 ### INTEGRATIONS / ACTIONS
-Un run de test est lancé à chaque `push` sur la branche main
-Un dashboard de test est disponible à cette adresse : https://dashboard.cypress.io/projects/u67ihc/runs
+- Un run de test est lancé à chaque `push` sur la branche main.
+- Un dashboard de test est disponible à cette adresse : https://dashboard.cypress.io/projects/u67ihc/runs
 
 ---
 
