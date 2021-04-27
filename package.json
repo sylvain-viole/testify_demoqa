@@ -7,7 +7,8 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "report:clean": "rimraf mochawesome-report cypress/results mochawesome.json cypress/screenshots",
         "cy:open": "cypress open",
-        "cy:run": "cypress run"
+        "cy:run": "cypress run",
+        "cy:run:xml": "cypress run --reporter xunit --reporter-options output=reports_$(date).xml"
     },
     "repository": {
         "type": "git",

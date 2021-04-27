@@ -20,6 +20,10 @@ jobs:
 
       - name: install
         run: npm install
+
+      - name: verify
+        run: ./node_modules/.bin/cypress verify
+        run: ./node_modules/.bin/cypress info
         
       - name: test
         run: ./node_modules/.bin/cypress run --record --key ${{ secrets.CYPRESS_DASHBOARD_KEY }}
